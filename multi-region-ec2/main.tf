@@ -1,19 +1,44 @@
-locals {
-  region_providers = {
-    ap-south-1 = aws.ap_south_1
-    us-east-1  = aws.us_east_1
-    us-east-2  = aws.us_east_2
+module "region_ap_south_1" {
+  source = "./modules/region"
+
+  for_each = {
+    for k, v in var.regions : k => v if k == "ap-south-1"
   }
+
+  providers = { aws = aws.ap_south_1 }
+
+  region_name               = each.key
+  project                   = var.project
+  iam_instance_profile_name = var.iam_instance_profile_name
+  config                    = each.value
 }
 
-module "region" {
-  for_each = var.regions
+module "region_us_east_1" {
+  source = "./modules/region"
 
-  source    = "./modules/region"
-  providers = { aws = local.region_providers[each.key] }
+  for_each = {
+    for k, v in var.regions : k => v if k == "us-east-1"
+  }
 
-  region               = each.key
-  project              = var.project
-  iam_instance_profile = var.iam_instance_profile_name
-  config               = each.value
+  providers = { aws = aws.us_east_1 }
+
+  region_name               = each.key
+  project                   = var.project
+  iam_instance_profile_name = var.iam_instance_profile_name
+  config                    = each.value
+}
+
+module "region_us_east_2" {
+  source = "./modules/region"
+
+  for_each = {
+    for k, v in var.regions : k => v if k == "us-east-2"
+  }
+
+  providers = { aws = aws.us_east_2 }
+
+  region_name               = each.key
+  project                   = var.project
+  iam_instance_profile_name = var.iam_instance_profile_name
+  config                    = each.value
 }

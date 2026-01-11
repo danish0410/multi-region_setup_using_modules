@@ -3,15 +3,13 @@ data "aws_ssm_parameter" "ubuntu" {
 }
 
 resource "aws_launch_template" "this" {
-  image_id      = data.aws_ssm_parameter.ubuntu.value
+  name_prefix   = "lt-"
+  image_id      = data.aws_ssm_parameter.ubuntu_24_04.value
   instance_type = var.instance_type
+
+  vpc_security_group_ids = var.security_groups
 
   iam_instance_profile {
     name = var.iam_instance_profile_name
-  }
-
-  network_interfaces {
-    associate_public_ip_address = true
-    security_groups             = var.security_groups
   }
 }

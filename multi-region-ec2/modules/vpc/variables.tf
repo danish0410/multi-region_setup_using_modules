@@ -1,3 +1,16 @@
-variable "cidr" {}
-variable "region" {}
-variable "project" {}
+variable "cidr_block" {
+  type = string
+}
+
+variable "project" {
+  type = string
+}
+
+variable "region" {
+  type = string
+}
+
+variable "tags" {
+  type    = map(string)
+  default = {}
+}

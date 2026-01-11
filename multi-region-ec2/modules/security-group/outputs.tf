@@ -1,19 +1,16 @@
-output "common_security_group_id" {
-  description = "ID of the common security group"
+output "common_sg_id" {
+  description = "ID of common security group"
   value       = aws_security_group.common.id
 }
 
-output "user_security_group_id" {
-  description = "ID of the user security group"
+output "user_sg_id" {
+  description = "ID of user security group"
   value       = aws_security_group.user.id
 }
 
-output "common_security_group_arn" {
-  description = "ARN of the common security group"
-  value       = aws_security_group.common.arn
-}
-
-output "user_security_group_arn" {
-  description = "ARN of the user security group"
-  value       = aws_security_group.user.arn
+output "all_sg_ids" {
+  value = [
+    aws_security_group.common.id,
+    aws_security_group.user.id
+  ]
 }

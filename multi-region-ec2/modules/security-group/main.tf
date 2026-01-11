@@ -37,7 +37,7 @@ resource "aws_security_group" "user" {
   description = "User security group with no ingress rules"
   vpc_id      = var.vpc_id
 
-  # ❌ No ingress rules (as requested)
+  # No ingress rules (intentional)
 
   egress {
     from_port   = 0

@@ -1,28 +1,24 @@
 variable "vpc_id" {
-  description = "VPC ID where security groups will be created"
   type        = string
+  description = "VPC ID where security groups are created"
 }
 
 variable "common_sg_name" {
-  description = "Name of the common security group"
   type        = string
-  default     = "common-sg"
+  description = "Name of the common security group"
 }
 
 variable "user_sg_name" {
-  description = "Name of the user security group"
   type        = string
-  default     = "user-sg"
+  description = "Name of the user security group"
 }
 
 variable "allowed_cidr_blocks" {
-  description = "Allowed CIDR blocks for common SG ingress rules"
   type        = list(string)
-  default     = ["0.0.0.0/0"]
+  description = "Allowed CIDR blocks for ingress rules"
 }
 
 variable "tags" {
-  description = "Tags to apply to security groups"
-  type        = map(string)
-  default     = {}
+  type    = map(string)
+  default = {}
 }

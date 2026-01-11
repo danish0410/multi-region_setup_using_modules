@@ -3,7 +3,8 @@ variable "project" {
 }
 
 variable "iam_instance_profile_name" {
-  type = string
+  type        = string
+  description = "IAM instance profile for EC2 / ASG"
 }
 
 variable "regions" {
