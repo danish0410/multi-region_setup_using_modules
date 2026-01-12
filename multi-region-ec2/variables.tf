@@ -18,3 +18,7 @@ variable "regions" {
     desired_capacity = number
   }))
 }
+
+variable "ec2_keypair_map" {
+  type = map(string)
+}

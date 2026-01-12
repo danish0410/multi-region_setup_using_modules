@@ -29,11 +29,16 @@ module "sg" {
 }
 
 module "lt" {
-  source                    = "../launch-template"
+  source = "../launch-template"
+
   instance_type             = var.config.instance_type
   security_groups           = module.sg.all_sg_ids
   iam_instance_profile_name = var.iam_instance_profile_name
+
+  # 🔑 PASS IT DOWN
+  key_name = var.key_name
 }
+
 
 module "asg" {
   source          = "../autoscaling"

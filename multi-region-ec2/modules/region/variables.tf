@@ -21,3 +21,7 @@ variable "config" {
     desired_capacity = number
   })
 }
+
+variable "key_name" {
+  type = string
+}

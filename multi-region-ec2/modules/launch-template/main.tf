@@ -7,9 +7,19 @@ resource "aws_launch_template" "this" {
   image_id      = data.aws_ssm_parameter.ubuntu_24_04.value
   instance_type = var.instance_type
 
+  # 🔑 THIS IS THE MISSING LINE (CRITICAL)
+  key_name = var.key_name
+
   vpc_security_group_ids = var.security_groups
 
   iam_instance_profile {
     name = var.iam_instance_profile_name
+  }
+
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "asg-instance"
+    }
   }
 }

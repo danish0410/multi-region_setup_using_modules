@@ -9,8 +9,12 @@ module "region_ap_south_1" {
 
   region_name               = each.key
   project                   = var.project
-  iam_instance_profile_name = var.iam_instance_profile_name
-  config                    = each.value
+  iam_instance_profile_name = module.iam.instance_profile_name
+
+  # 🔑 THIS LINE FIXES EVERYTHING
+  key_name = var.ec2_keypair_map[each.key]
+
+  config = each.value
 }
 
 module "region_us_east_1" {
@@ -24,8 +28,12 @@ module "region_us_east_1" {
 
   region_name               = each.key
   project                   = var.project
-  iam_instance_profile_name = var.iam_instance_profile_name
-  config                    = each.value
+  iam_instance_profile_name = module.iam.instance_profile_name
+
+  # 🔑 THIS LINE FIXES EVERYTHING
+  key_name = var.ec2_keypair_map[each.key]
+
+  config = each.value
 }
 
 module "region_us_east_2" {
@@ -39,8 +47,12 @@ module "region_us_east_2" {
 
   region_name               = each.key
   project                   = var.project
-  iam_instance_profile_name = var.iam_instance_profile_name
-  config                    = each.value
+  iam_instance_profile_name = module.iam.instance_profile_name
+
+  # 🔑 THIS LINE FIXES EVERYTHING
+  key_name = var.ec2_keypair_map[each.key]
+
+  config = each.value
 }
 
 module "iam" {

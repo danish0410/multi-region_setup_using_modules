@@ -17,3 +17,7 @@ output "launch_template_name" {
   description = "Name of the launch template"
   value       = aws_launch_template.this.name
 }
+
+output "id" {
+  value = aws_launch_template.this.id
+}
