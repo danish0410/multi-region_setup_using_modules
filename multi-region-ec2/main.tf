@@ -42,3 +42,7 @@ module "region_us_east_2" {
   iam_instance_profile_name = var.iam_instance_profile_name
   config                    = each.value
 }
+
+module "iam" {
+  source = "./modules/iam"
+}
