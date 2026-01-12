@@ -46,5 +46,5 @@ module "asg" {
 
 module "cw" {
   source = "../cloudwatch"
-  asg    = module.asg.name
+  asg    = module.asg.asg_name
 }
