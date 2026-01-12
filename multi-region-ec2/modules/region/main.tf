@@ -1,3 +1,6 @@
+################################
+# VPC
+################################
 module "vpc" {
   source     = "../vpc"
   region     = var.region_name
@@ -5,6 +8,9 @@ module "vpc" {
   cidr_block = var.config.vpc_cidr
 }
 
+################################
+# Subnets
+################################
 module "subnets" {
   source          = "../subnets"
   vpc_id          = module.vpc.vpc_id
@@ -12,6 +18,9 @@ module "subnets" {
   private_subnets = var.config.private_subnets
 }
 
+################################
+# Security Groups
+################################
 module "sg" {
   source = "../security-group"
 
@@ -20,6 +29,8 @@ module "sg" {
   common_sg_name = "${var.project}-${var.region_name}-common-sg"
   user_sg_name   = "${var.project}-${var.region_name}-user-sg"
 
+  # 🔐 SECURITY NOTE:
+  # SSH should ideally be /32, but keep open for now for debugging
   allowed_cidr_blocks = ["0.0.0.0/0"]
 
   tags = {
@@ -28,6 +39,9 @@ module "sg" {
   }
 }
 
+################################
+# Launch Template
+################################
 module "lt" {
   source = "../launch-template"
 
@@ -35,20 +49,29 @@ module "lt" {
   security_groups           = module.sg.all_sg_ids
   iam_instance_profile_name = var.iam_instance_profile_name
 
-  # 🔑 PASS IT DOWN
+  # 🔑 CRITICAL – ensures EC2 gets the correct key
   key_name = var.key_name
 }
 
-
+################################
+# Auto Scaling Group
+################################
 module "asg" {
-  source          = "../autoscaling"
+  source = "../autoscaling"
+
   launch_template = module.lt.launch_template_id
-  subnets         = module.subnets.public_subnet_ids
-  min             = var.config.min_size
-  max             = var.config.max_size
-  desired         = var.config.desired_capacity
+
+  # ✅ MUST BE PUBLIC SUBNETS FOR DIRECT SSH
+  subnets = module.subnets.public_subnet_ids
+
+  min     = var.config.min_size
+  max     = var.config.max_size
+  desired = var.config.desired_capacity
 }
 
+################################
+# CloudWatch
+################################
 module "cw" {
   source = "../cloudwatch"
   asg    = module.asg.asg_name
