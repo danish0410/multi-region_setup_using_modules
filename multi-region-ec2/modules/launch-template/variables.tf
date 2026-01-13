@@ -29,3 +29,12 @@ variable "key_name" {
   description = "EC2 key pair name"
   type        = string
 }
+
+variable "region_name" {
+  type = string
+}
+
+variable "user_data" {
+  type        = string
+  description = "User data script (base64 encoded)"
+}

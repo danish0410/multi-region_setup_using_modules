@@ -1,17 +1,21 @@
 variable "project" {
-  default = "multi-region-ec2"
-}
-
-variable "iam_instance_profile_name" {
-  type        = string
-  description = "IAM instance profile for EC2 / ASG"
+  type = string
 }
 
 variable "regions" {
   type = map(object({
-    vpc_cidr         = string
-    public_subnets   = list(string)
-    private_subnets  = list(string)
+    vpc_cidr = string
+
+    public_subnets = map(object({
+      cidr = string
+      az   = string
+    }))
+
+    private_subnets = map(object({
+      cidr = string
+      az   = string
+    }))
+
     instance_type    = string
     min_size         = number
     max_size         = number
@@ -21,4 +25,9 @@ variable "regions" {
 
 variable "ec2_keypair_map" {
   type = map(string)
+}
+
+variable "iam_instance_profile_name" {
+  type        = string
+  description = "IAM instance profile name for EC2"
 }

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euxo pipefail
 
 LOG=/var/log/dev-classic-userdata.log
 exec > >(tee -a $LOG) 2>&1
@@ -7,6 +7,8 @@ exec > >(tee -a $LOG) 2>&1
 REGION="${region}"
 
 echo "===== USERDATA START | REGION: $REGION ====="
+
+sleep 20
 
 # Base packages
 apt-get update -y
