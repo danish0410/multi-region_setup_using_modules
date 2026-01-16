@@ -5,8 +5,8 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 }
 
-resource "aws_subnet" "private" {
-  count      = length(var.private_subnets)
-  vpc_id     = var.vpc_id
-  cidr_block = var.private_subnets[count.index]
-}
+# resource "aws_subnet" "private" {
+#   count      = length(var.private_subnets)
+#   vpc_id     = var.vpc_id
+#   cidr_block = var.private_subnets[count.index]
+# }

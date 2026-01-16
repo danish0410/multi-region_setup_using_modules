@@ -23,10 +23,10 @@ variable "config" {
       az   = string
     }))
 
-    private_subnets = map(object({
-      cidr = string
-      az   = string
-    }))
+    # private_subnets = map(object({
+    #   cidr = string
+    #   az   = string
+    # }))
 
     instance_type    = string
     min_size         = number

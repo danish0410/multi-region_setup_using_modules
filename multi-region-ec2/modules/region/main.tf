@@ -8,8 +8,8 @@ module "vpc" {
   region     = var.region_name
   cidr_block = var.config.vpc_cidr
 
-  public_subnets  = var.config.public_subnets
-  private_subnets = var.config.private_subnets
+  public_subnets = var.config.public_subnets
+  #private_subnets = var.config.private_subnets
 
   tags = {
     Project = var.project

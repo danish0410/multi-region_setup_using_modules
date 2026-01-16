@@ -51,21 +51,21 @@ resource "aws_subnet" "public" {
 ############################
 # Private Subnets
 ############################
-resource "aws_subnet" "private" {
-  for_each = var.private_subnets
+# resource "aws_subnet" "private" {
+#   for_each = var.private_subnets
 
-  vpc_id            = aws_vpc.this.id
-  cidr_block        = each.value.cidr
-  availability_zone = each.value.az
+#   vpc_id            = aws_vpc.this.id
+#   cidr_block        = each.value.cidr
+#   availability_zone = each.value.az
 
-  tags = merge(
-    var.tags,
-    {
-      Name = "${var.project}-${var.region}-private-${each.key}"
-      Tier = "private"
-    }
-  )
-}
+#   tags = merge(
+#     var.tags,
+#     {
+#       Name = "${var.project}-${var.region}-private-${each.key}"
+#       Tier = "private"
+#     }
+#   )
+# }
 
 ############################
 # Public Route Table
@@ -98,22 +98,22 @@ resource "aws_route_table_association" "public" {
 ############################
 # Private Route Table (local only)
 ############################
-resource "aws_route_table" "private" {
-  vpc_id = aws_vpc.this.id
+# resource "aws_route_table" "private" {
+#   vpc_id = aws_vpc.this.id
 
-  tags = merge(
-    var.tags,
-    {
-      Name = "${var.project}-${var.region}-private-rt"
-    }
-  )
-}
+#   tags = merge(
+#     var.tags,
+#     {
+#       Name = "${var.project}-${var.region}-private-rt"
+#     }
+#   )
+# }
 
 ############################
 # Associate Private Subnets
 ############################
-resource "aws_route_table_association" "private" {
-  for_each       = aws_subnet.private
-  subnet_id      = each.value.id
-  route_table_id = aws_route_table.private.id
-}
+# resource "aws_route_table_association" "private" {
+#   for_each       = aws_subnet.private
+#   subnet_id      = each.value.id
+#   route_table_id = aws_route_table.private.id
+# }
