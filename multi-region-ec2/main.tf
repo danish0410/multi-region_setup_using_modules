@@ -9,6 +9,7 @@ module "region_ap_south_1" {
 
   region_name               = each.key
   project                   = var.project
+  environment               = var.environment
   iam_instance_profile_name = module.iam.instance_profile_name
   key_name                  = var.ec2_keypair_map[each.key]
 
@@ -26,6 +27,7 @@ module "region_us_east_1" {
 
   region_name               = each.key
   project                   = var.project
+  environment               = var.environment
   iam_instance_profile_name = module.iam.instance_profile_name
   key_name                  = var.ec2_keypair_map[each.key]
 
@@ -43,12 +45,55 @@ module "region_us_east_2" {
 
   region_name               = each.key
   project                   = var.project
+  environment               = var.environment
   iam_instance_profile_name = module.iam.instance_profile_name
   key_name                  = var.ec2_keypair_map[each.key]
 
   config = each.value
 }
 
+#####################################
+# IAM (GLOBAL / SHARED)
+#####################################
 module "iam" {
   source = "./modules/iam"
+}
+
+#####################################
+# CLOUDWATCH – ap-south-1
+#####################################
+module "cloudwatch_ap_south_1" {
+  source = "./modules/cloudwatch"
+
+  providers = { aws = aws.ap_south_1 }
+
+  region      = "ap-south-1"
+  environment = var.environment
+  asg_name    = module.region_ap_south_1["ap-south-1"].asg_name
+}
+
+#####################################
+# CLOUDWATCH – us-east-1
+#####################################
+module "cloudwatch_us_east_1" {
+  source = "./modules/cloudwatch"
+
+  providers = { aws = aws.us_east_1 }
+
+  region      = "us-east-1"
+  environment = var.environment
+  asg_name    = module.region_us_east_1["us-east-1"].asg_name
+}
+
+#####################################
+# CLOUDWATCH – us-east-2
+#####################################
+module "cloudwatch_us_east_2" {
+  source = "./modules/cloudwatch"
+
+  providers = { aws = aws.us_east_2 }
+
+  region      = "us-east-2"
+  environment = var.environment
+  asg_name    = module.region_us_east_2["us-east-2"].asg_name
 }

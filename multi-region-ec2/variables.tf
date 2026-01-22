@@ -31,3 +31,9 @@ variable "iam_instance_profile_name" {
   type        = string
   description = "IAM instance profile name for EC2"
 }
+
+variable "environment" {
+  description = "Environment name (dev, qa, prod)"
+  type        = string
+  default     = "dev"
+}

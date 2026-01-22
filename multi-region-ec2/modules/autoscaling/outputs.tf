@@ -29,5 +29,6 @@ output "autoscaling_group_desired_capacity" {
 }
 
 output "asg_name" {
-  value = aws_autoscaling_group.this.name
+  description = "Auto Scaling Group Name"
+  value       = aws_autoscaling_group.this.name
 }

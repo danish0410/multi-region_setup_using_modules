@@ -9,7 +9,6 @@ module "vpc" {
   cidr_block = var.config.vpc_cidr
 
   public_subnets = var.config.public_subnets
-  #private_subnets = var.config.private_subnets
 
   tags = {
     Project = var.project
@@ -61,6 +60,8 @@ module "lt" {
 module "asg" {
   source = "../autoscaling"
 
+  environment     = var.environment
+  region          = var.region_name
   launch_template = module.lt.launch_template_id
   subnets         = module.vpc.public_subnet_ids
 
@@ -68,3 +69,17 @@ module "asg" {
   max     = var.config.max_size
   desired = var.config.desired_capacity
 }
+
+# ################################
+# # Auto Scaling Group
+# ################################
+# module "asg" {
+#   source = "../autoscaling"
+
+#   launch_template = module.lt.launch_template_id
+#   subnets         = module.vpc.public_subnet_ids
+
+#   min     = var.config.min_size
+#   max     = var.config.max_size
+#   desired = var.config.desired_capacity
+# }
