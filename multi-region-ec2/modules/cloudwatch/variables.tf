@@ -13,6 +13,12 @@ variable "environment" {
   type        = string
 }
 
+variable "rds_identifier" {
+  description = "RDS instance identifier (optional)"
+  type        = string
+  default     = null
+}
+
 # variable "asg" {
 #   description = "Name of the Auto Scaling Group to monitor"
 #   type        = string

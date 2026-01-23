@@ -10,8 +10,8 @@ terraform {
 ##################################
 # CPU Alarm
 ##################################
-resource "aws_cloudwatch_metric_alarm" "cpu_high" {
-  alarm_name          = "${var.environment}-${var.region}-cpu-high"
+resource "aws_cloudwatch_metric_alarm" "rds_cpu_high" {
+  alarm_name          = "${var.environment}-${var.region}-rds-cpu-high"
   comparison_operator = "GreaterThanThreshold"
   threshold           = 80
   evaluation_periods  = 2
@@ -26,6 +26,9 @@ resource "aws_cloudwatch_metric_alarm" "cpu_high" {
   }
 
   treat_missing_data = "notBreaching"
+  alarm_actions      = [aws_sns_topic.alerts.arn]
+  ok_actions         = [aws_sns_topic.alerts.arn]
+
 }
 
 ##################################
@@ -45,6 +48,7 @@ resource "aws_cloudwatch_metric_alarm" "network_in" {
   dimensions = {
     AutoScalingGroupName = var.asg_name
   }
+  alarm_actions = [aws_sns_topic.alerts.arn]
 }
 
 ##################################
@@ -64,6 +68,28 @@ resource "aws_cloudwatch_metric_alarm" "status_check" {
   dimensions = {
     AutoScalingGroupName = var.asg_name
   }
+  alarm_actions = [aws_sns_topic.alerts.arn]
+}
+
+################################
+# RDS STORAGE ALARM
+################################
+resource "aws_cloudwatch_metric_alarm" "rds_storage" {
+  alarm_name          = "${var.environment}-${var.region}-rds-storage-low"
+  comparison_operator = "LessThanThreshold"
+  threshold           = 10737418240 # 10 GB
+  evaluation_periods  = 2
+  statistic           = "Average"
+  period              = 300
+
+  metric_name = "FreeStorageSpace"
+  namespace   = "AWS/RDS"
+
+  dimensions = {
+    DBInstanceIdentifier = var.rds_identifier
+  }
+
+  alarm_actions = [aws_sns_topic.alerts.arn]
 }
 
 ##################################
@@ -125,6 +151,19 @@ resource "aws_cloudwatch_dashboard" "dashboard" {
       }
     ]
   })
+}
+
+################################
+# SNS ALERT MANAGER
+################################
+resource "aws_sns_topic" "alerts" {
+  name = "${var.environment}-${var.region}-alerts"
+}
+
+resource "aws_sns_topic_subscription" "email" {
+  topic_arn = aws_sns_topic.alerts.arn
+  protocol  = "email"
+  endpoint  = "thanigaivelansekar@gmail.com"
 }
 
 # resource "aws_cloudwatch_metric_alarm" "cpu" {

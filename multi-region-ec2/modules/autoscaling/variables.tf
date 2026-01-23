@@ -42,3 +42,8 @@ variable "environment" {
 variable "region" {
   type = string
 }
+
+variable "rds_identifier" {
+  type    = string
+  default = null
+}
