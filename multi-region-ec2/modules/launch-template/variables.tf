@@ -38,3 +38,13 @@ variable "user_data" {
   type        = string
   description = "User data script (base64 encoded)"
 }
+variable "ami_id" {
+  description = "Optional custom AMI ID. If null, latest Ubuntu 24.04 is used."
+  type        = string
+  default     = null
+}
+
+variable "environment" {
+  description = "Environment name (dev, qa, prod)"
+  type        = string
+}

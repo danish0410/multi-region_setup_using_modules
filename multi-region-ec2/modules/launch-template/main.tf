@@ -1,13 +1,24 @@
 # -------------------------------------
-# Fetch latest Ubuntu 22.04 AMI (Canonical) dynamically per region
+# Fetch latest Ubuntu 24.04 LTS AMI (Canonical)
 # -------------------------------------
-data "aws_ami" "ubuntu_22_04" {
+data "aws_ami" "ubuntu_24_04" {
+  count       = var.ami_id == null ? 1 : 0
   most_recent = true
   owners      = ["099720109477"] # Canonical
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+    values = ["ubuntu/images/*/ubuntu-noble-24.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
   }
 
   filter {
@@ -20,8 +31,14 @@ data "aws_ami" "ubuntu_22_04" {
 # Launch Template for EC2
 # -------------------------------------
 resource "aws_launch_template" "this" {
-  name_prefix   = "dev-classic-lt-"
-  image_id      = data.aws_ami.ubuntu_22_04.id
+  name_prefix = "dev-classic-lt-"
+
+  # Use user-provided AMI if supplied, otherwise latest Ubuntu 24.04
+  image_id = coalesce(
+    var.ami_id,
+    data.aws_ami.ubuntu_24_04[0].id
+  )
+
   instance_type = var.instance_type
   key_name      = var.key_name
 
@@ -36,7 +53,9 @@ resource "aws_launch_template" "this" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name = "dev-classic-instance"
+      Name        = "dev-classic-instance"
+      OS          = "ubuntu-24.04"
+      Environment = var.environment
     }
   }
 }

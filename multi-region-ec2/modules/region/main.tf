@@ -46,6 +46,7 @@ module "lt" {
   iam_instance_profile_name = var.iam_instance_profile_name
   key_name                  = var.key_name
   region_name               = var.region_name
+  environment               = var.environment
 
   user_data = base64encode(
     templatefile("${path.module}/userdata/dev_classic_userdata.sh", {
