@@ -16,6 +16,24 @@ module "region_ap_south_1" {
   config = each.value
 }
 
+module "region_ap_south_2" {
+  source = "./modules/region"
+
+  for_each = {
+    for k, v in var.regions : k => v if k == "ap-south-2"
+  }
+
+  providers = { aws = aws.ap_south_2 }
+
+  region_name               = each.key
+  project                   = var.project
+  environment               = var.environment
+  iam_instance_profile_name = module.iam.instance_profile_name
+  key_name                  = var.ec2_keypair_map[each.key]
+
+  config = each.value
+}
+
 module "region_us_east_1" {
   source = "./modules/region"
 
@@ -70,6 +88,19 @@ module "cloudwatch_ap_south_1" {
   region      = "ap-south-1"
   environment = var.environment
   asg_name    = module.region_ap_south_1["ap-south-1"].asg_name
+}
+
+#####################################
+# CLOUDWATCH – ap-south-2
+#####################################
+module "cloudwatch_ap_south_2" {
+  source = "./modules/cloudwatch"
+
+  providers = { aws = aws.ap_south_2 }
+
+  region      = "ap-south-2"
+  environment = var.environment
+  asg_name    = module.region_ap_south_2["ap-south-2"].asg_name
 }
 
 #####################################
