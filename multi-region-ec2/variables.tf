@@ -1,5 +1,6 @@
 variable "project" {
-  type = string
+  type    = string
+  default = "myproject"
 }
 
 variable "regions" {
@@ -36,4 +37,9 @@ variable "environment" {
   description = "Environment name (dev, qa, prod)"
   type        = string
   default     = "dev"
+}
+
+variable "alert_email" {
+  description = "Email address for CloudWatch SNS alerts"
+  type        = string
 }

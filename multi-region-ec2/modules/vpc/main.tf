@@ -9,7 +9,7 @@ resource "aws_vpc" "this" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-${var.region}-vpc"
+      Name = "${replace(var.region, "-", "")}-vpc"
     }
   )
 }
