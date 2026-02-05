@@ -23,7 +23,7 @@ resource "aws_internet_gateway" "this" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-${var.region}-igw"
+      Name = "${replace(var.region, "-", "")}-igw"
     }
   )
 }
@@ -42,7 +42,7 @@ resource "aws_subnet" "public" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-${var.region}-public-${each.key}"
+      Name = "${replace(var.region, "-", "")}-public-${each.key}"
       Tier = "public"
     }
   )
@@ -81,7 +81,7 @@ resource "aws_route_table" "public" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-${var.region}-public-rt"
+      Name = "${replace(var.region, "-", "")}-public-rt"
     }
   )
 }

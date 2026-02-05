@@ -24,8 +24,8 @@ module "sg" {
 
   vpc_id = module.vpc.vpc_id
 
-  common_sg_name = "${var.project}-${var.region_name}-common-sg"
-  user_sg_name   = "${var.project}-${var.region_name}-user-sg"
+  common_sg_name = "${replace(var.region_name, "-", "")}-common-sg"
+  user_sg_name   = "${replace(var.region_name, "-", "")}-user-sg"
 
   allowed_cidr_blocks = ["0.0.0.0/0"]
 

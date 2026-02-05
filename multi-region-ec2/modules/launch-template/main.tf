@@ -31,7 +31,7 @@ data "aws_ami" "ubuntu_24_04" {
 # Launch Template for EC2
 # -------------------------------------
 resource "aws_launch_template" "this" {
-  name_prefix = "dev-classic-lt-"
+  name_prefix = "dev-lt-"
 
   # Use user-provided AMI if supplied, otherwise latest Ubuntu 24.04
   image_id = coalesce(
@@ -53,7 +53,7 @@ resource "aws_launch_template" "this" {
   tag_specifications {
     resource_type = "instance"
     tags = {
-      Name        = "dev-classic-instance"
+      Name        = "${var.environment}-${replace(var.region_name, "-", "")}-ec2"
       OS          = "ubuntu-24.04"
       Environment = var.environment
     }
