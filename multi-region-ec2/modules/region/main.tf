@@ -41,6 +41,8 @@ module "sg" {
 module "lt" {
   source = "../launch-template"
 
+  ami_id = lookup(var.ami_map, var.region_name, null)
+
   instance_type             = var.config.instance_type
   security_groups           = module.sg.all_sg_ids
   iam_instance_profile_name = var.iam_instance_profile_name

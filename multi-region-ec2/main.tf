@@ -9,6 +9,7 @@
 
 #   region_name               = each.key
 #   project                   = var.project
+#   ami_map                   = var.ami_map
 #   environment               = var.environment
 #   iam_instance_profile_name = module.iam.instance_profile_name
 #   key_name                  = var.ec2_keypair_map[each.key]
@@ -27,6 +28,7 @@ module "region_ap_south_2" {
 
   region_name               = each.key
   project                   = var.project
+  ami_map                   = var.ami_map
   environment               = var.environment
   iam_instance_profile_name = module.iam.instance_profile_name
   key_name                  = var.ec2_keypair_map[each.key]
@@ -45,6 +47,7 @@ module "region_ap_south_2" {
 
 #   region_name               = each.key
 #   project                   = var.project
+#   ami_map                   = var.ami_map
 #   environment               = var.environment
 #   iam_instance_profile_name = module.iam.instance_profile_name
 #   key_name                  = var.ec2_keypair_map[each.key]
@@ -63,6 +66,7 @@ module "region_ap_south_2" {
 
 #   region_name               = each.key
 #   project                   = var.project
+#   ami_map                   = var.ami_map
 #   environment               = var.environment
 #   iam_instance_profile_name = module.iam.instance_profile_name
 #   key_name                  = var.ec2_keypair_map[each.key]

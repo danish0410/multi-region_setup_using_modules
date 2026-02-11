@@ -43,3 +43,9 @@ variable "alert_email" {
   description = "Email address for CloudWatch SNS alerts"
   type        = string
 }
+
+variable "ami_map" {
+  description = "Region-wise AMI mapping"
+  type        = map(string)
+  default     = {}
+}

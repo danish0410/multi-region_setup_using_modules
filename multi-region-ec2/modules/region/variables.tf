@@ -39,3 +39,8 @@ variable "environment" {
   description = "Environment name (dev, qa, prod)"
   type        = string
 }
+
+variable "ami_map" {
+  description = "Region-wise AMI map"
+  type        = map(string)
+}
