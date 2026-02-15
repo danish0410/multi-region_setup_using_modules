@@ -47,3 +47,8 @@ variable "rds_identifier" {
   type    = string
   default = null
 }
+
+variable "target_group_arns" {
+  type    = list(string)
+  default = []
+}

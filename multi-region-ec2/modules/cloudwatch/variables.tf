@@ -19,7 +19,7 @@ variable "rds_identifier" {
   default     = null
 }
 
-variable "alert_email" {
-  description = "Email address for SNS alerts"
-  type        = string
-}
+# variable "alert_email" {
+#   description = "Email address for SNS alerts"
+#   type        = string
+# }

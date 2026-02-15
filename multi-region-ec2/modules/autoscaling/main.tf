@@ -10,6 +10,11 @@ resource "aws_autoscaling_group" "this" {
     version = "$Latest"
   }
 
+  target_group_arns = var.target_group_arns
+
+  health_check_type         = "ELB"
+  health_check_grace_period = 600
+
   tag {
     key                 = "Name"
     value               = "${var.environment}-${var.region}-ec2"

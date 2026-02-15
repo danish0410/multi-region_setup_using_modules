@@ -106,7 +106,7 @@ module "cloudwatch_ap_south_2" {
   region      = "ap-south-2"
   environment = var.environment
   asg_name    = module.region_ap_south_2["ap-south-2"].asg_name
-  alert_email = var.alert_email
+  # alert_email = var.alert_email
 }
 
 #####################################

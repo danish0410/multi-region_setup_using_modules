@@ -36,7 +36,7 @@ resource "aws_launch_template" "this" {
   # Use user-provided AMI if supplied, otherwise latest Ubuntu 24.04
   image_id = coalesce(
     var.ami_id,
-    #data.aws_ami.ubuntu_24_04[0].id
+    data.aws_ami.ubuntu_24_04[0].id
   )
 
   instance_type = var.instance_type

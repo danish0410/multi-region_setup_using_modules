@@ -22,7 +22,8 @@ module "vpc" {
 module "sg" {
   source = "../security-group"
 
-  vpc_id = module.vpc.vpc_id
+  vpc_id   = module.vpc.vpc_id
+  vpc_cidr = module.vpc.vpc_cidr
 
   common_sg_name = "${replace(var.region_name, "-", "")}-common-sg"
   user_sg_name   = "${replace(var.region_name, "-", "")}-user-sg"
@@ -71,7 +72,21 @@ module "asg" {
   min     = var.config.min_size
   max     = var.config.max_size
   desired = var.config.desired_capacity
+
+  target_group_arns = [module.nlb.target_group_arn]
 }
+
+# ################################
+# # Network Load Balancer
+# ################################
+module "nlb" {
+  source = "../nlb"
+
+  environment       = var.environment
+  vpc_id            = module.vpc.vpc_id
+  public_subnet_ids = module.vpc.public_subnet_ids
+}
+
 
 # ################################
 # # Auto Scaling Group

@@ -39,10 +39,10 @@ variable "environment" {
   default     = "dev"
 }
 
-variable "alert_email" {
-  description = "Email address for CloudWatch SNS alerts"
-  type        = string
-}
+# variable "alert_email" {
+#   description = "Email address for CloudWatch SNS alerts"
+#   type        = string
+# }
 
 variable "ami_map" {
   description = "Region-wise AMI mapping"
