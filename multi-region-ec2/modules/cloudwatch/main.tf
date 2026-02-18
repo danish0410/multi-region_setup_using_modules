@@ -192,3 +192,25 @@ resource "aws_cloudwatch_dashboard" "dashboard" {
     ]
   })
 }
+
+##################################
+# EC2 MEMORY HIGH (80%)
+##################################
+resource "aws_cloudwatch_metric_alarm" "ec2_memory_high" {
+  alarm_name          = "${var.environment}-${var.region}-ec2-memory-high"
+  comparison_operator = "GreaterThanThreshold"
+  threshold           = 60
+  evaluation_periods  = 2
+
+  metric_name = "mem_used_percent"
+  namespace   = "CWAgent"
+  period      = 60
+  statistic   = "Average"
+
+  dimensions = {
+    AutoScalingGroupName = var.asg_name
+  }
+
+  treat_missing_data = "notBreaching"
+  alarm_actions      = [aws_sns_topic.alerts.arn]
+}
