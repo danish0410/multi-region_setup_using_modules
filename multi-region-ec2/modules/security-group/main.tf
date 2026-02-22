@@ -16,7 +16,7 @@ resource "aws_security_group" "common" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr]
+    cidr_blocks = var.allowed_cidr_blocks
   }
 
   ingress {
