@@ -136,3 +136,17 @@ module "cloudwatch_ap_south_2" {
 #   asg_name    = module.region_us_east_2["us-east-2"].asg_name
 #   alert_email = var.alert_email
 # }
+
+module "acm" {
+  source      = "./modules/acm"
+  domain_name = var.domain_name
+}
+
+module "nlb" {
+  source = "./modules/nlb"
+
+  environment       = var.environment
+  vpc_id            = module.vpc.vpc_id
+  public_subnet_ids = module.subnets.public_subnet_ids
+  certificate_arn   = module.acm.certificate_arn
+}

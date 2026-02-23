@@ -7,6 +7,7 @@ resource "aws_lb" "nlb" {
   enable_deletion_protection = false
 }
 
+# Target Group (Backend on Port 80)
 resource "aws_lb_target_group" "tg" {
   name        = "${var.environment}-tg"
   port        = 80
@@ -16,13 +17,29 @@ resource "aws_lb_target_group" "tg" {
 
   health_check {
     protocol = "TCP"
+    port     = "traffic-port"
   }
 }
 
-resource "aws_lb_listener" "listener" {
+# Optional HTTP (80) Listener
+resource "aws_lb_listener" "tcp_80" {
   load_balancer_arn = aws_lb.nlb.arn
   port              = 80
   protocol          = "TCP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tg.arn
+  }
+}
+
+# TLS Listener (443)
+resource "aws_lb_listener" "tls_443" {
+  load_balancer_arn = aws_lb.nlb.arn
+  port              = 443
+  protocol          = "TLS"
+  certificate_arn   = var.certificate_arn
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
 
   default_action {
     type             = "forward"

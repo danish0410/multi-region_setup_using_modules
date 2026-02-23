@@ -49,3 +49,16 @@ variable "ami_map" {
   type        = map(string)
   default     = {}
 }
+
+variable "domain_name" {
+  description = "Domain name for HTTPS"
+  type        = string
+}
+
+variable "environment" {
+  type = string
+}
+
+variable "certificate_arn" {
+  type = string
+}
