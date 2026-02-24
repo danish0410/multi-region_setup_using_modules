@@ -1,6 +1,6 @@
 variable "project" {
   type    = string
-  default = "myproject"
+  default = "arista-express"
 }
 
 variable "regions" {

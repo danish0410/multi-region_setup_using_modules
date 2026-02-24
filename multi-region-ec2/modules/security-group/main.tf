@@ -12,7 +12,7 @@ resource "aws_security_group" "common" {
   # }
 
   ingress {
-    description = "HTTP from VPC"
+    description = "HTTP"
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
@@ -42,7 +42,7 @@ resource "aws_security_group" "common" {
 
 resource "aws_security_group" "user" {
   name        = var.user_sg_name
-  description = "User security group with no ingress rules"
+  description = "User security group with no initial ingress rules"
   vpc_id      = var.vpc_id
 
   # No ingress rules (intentional)

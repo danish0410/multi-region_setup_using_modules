@@ -73,7 +73,7 @@ module "asg" {
   max     = var.config.max_size
   desired = var.config.desired_capacity
 
-  target_group_arns = [module.nlb.target_group_arn]
+  target_group_arns = module.nlb.target_group_arn
 }
 
 # ################################
