@@ -31,7 +31,8 @@ data "aws_ami" "ubuntu_24_04" {
 # Launch Template for EC2
 # -------------------------------------
 resource "aws_launch_template" "this" {
-  name_prefix = "dev-lt-"
+  name_prefix            = "dev-lt-"
+  update_default_version = true
 
   # Use user-provided AMI if supplied, otherwise latest Ubuntu 24.04
   image_id = coalesce(
@@ -49,6 +50,10 @@ resource "aws_launch_template" "this" {
   }
 
   user_data = var.user_data
+
+  lifecycle {
+    create_before_destroy = true
+  }
 
   tag_specifications {
     resource_type = "instance"
