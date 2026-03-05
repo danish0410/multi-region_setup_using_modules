@@ -28,6 +28,13 @@ data "aws_ami" "ubuntu_24_04" {
 }
 
 # -------------------------------------
+# Fetch latest Ubuntu 24.04 AMI from AWS SSM
+# -------------------------------------
+data "aws_ssm_parameter" "ubuntu_24_04" {
+  name = "/aws/service/canonical/ubuntu/server/24.04/stable/current/amd64/hvm/ebs-gp3/ami-id"
+}
+
+# -------------------------------------
 # Launch Template for EC2
 # -------------------------------------
 resource "aws_launch_template" "this" {
@@ -35,10 +42,12 @@ resource "aws_launch_template" "this" {
   update_default_version = true
 
   # Use user-provided AMI if supplied, otherwise latest Ubuntu 24.04
-  image_id = coalesce(
-    var.ami_id,
-    #data.aws_ami.ubuntu_24_04[0].id
-  )
+  # image_id = coalesce(
+  #   var.ami_id,
+  #   data.aws_ami.ubuntu_24_04[0].id
+  # )
+
+  image_id = var.ami_id != "" ? var.ami_id : data.aws_ssm_parameter.ubuntu_24_04.value
 
   instance_type = var.instance_type
   key_name      = var.key_name

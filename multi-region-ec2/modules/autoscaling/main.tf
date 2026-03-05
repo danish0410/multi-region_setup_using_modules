@@ -24,7 +24,22 @@ resource "aws_autoscaling_group" "this" {
   lifecycle {
     create_before_destroy = true
   }
+
+  instance_refresh {
+    strategy = "Rolling"
+
+    preferences {
+      min_healthy_percentage = var.min_healthy_percentage
+      max_healthy_percentage = var.max_healthy_percentage
+      instance_warmup        = var.instance_warmup
+
+      auto_rollback                = true
+      scale_in_protected_instances = "Ignore"
+      standby_instances            = "Ignore"
+    }
+  }
 }
+
 
 # resource "aws_autoscaling_group" "this" {
 #   min_size            = var.min

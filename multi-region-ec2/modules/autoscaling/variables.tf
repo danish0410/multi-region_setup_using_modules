@@ -52,3 +52,21 @@ variable "target_group_arns" {
   type    = list(string)
   default = []
 }
+
+variable "min_healthy_percentage" {
+  description = "Minimum healthy instances during refresh"
+  type        = number
+  default     = 50
+}
+
+variable "instance_warmup" {
+  description = "Time for instance warmup in seconds"
+  type        = number
+  default     = 300
+}
+
+variable "max_healthy_percentage" {
+  description = "Maximum healthy instances allowed during refresh"
+  type        = number
+  default     = 200
+}
