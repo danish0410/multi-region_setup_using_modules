@@ -49,3 +49,8 @@ variable "ami_map" {
   type        = map(string)
   default     = {}
 }
+
+variable "instance_name_prefix" {
+  description = "Prefix for EC2 instance name"
+  type        = string
+}

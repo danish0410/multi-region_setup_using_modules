@@ -1,5 +1,5 @@
 resource "aws_lb" "nlb" {
-  name                             = "${var.environment}-nlb"
+  name                             = "Xpress-prod-nlb"
   load_balancer_type               = "network"
   internal                         = false
   subnets                          = var.public_subnet_ids
@@ -8,7 +8,7 @@ resource "aws_lb" "nlb" {
 }
 
 resource "aws_lb_target_group" "tg" {
-  name        = "${var.environment}-tg"
+  name        = "Xpress-prod-tg"
   port        = 80
   protocol    = "TCP"
   vpc_id      = var.vpc_id
@@ -20,7 +20,7 @@ resource "aws_lb_target_group" "tg" {
 }
 
 resource "aws_lb_target_group" "tgtls" {
-  name        = "${var.environment}-tg-tls"
+  name        = "Xpress-prod-tg-tls"
   port        = 443
   protocol    = "TLS"
   vpc_id      = var.vpc_id

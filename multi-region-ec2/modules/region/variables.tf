@@ -44,3 +44,8 @@ variable "ami_map" {
   description = "Region-wise AMI map"
   type        = map(string)
 }
+
+variable "instance_name_prefix" {
+  description = "Prefix for EC2 instance name"
+  type        = string
+}

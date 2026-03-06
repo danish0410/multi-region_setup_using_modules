@@ -64,10 +64,20 @@ resource "aws_launch_template" "this" {
     create_before_destroy = true
   }
 
+  # tag_specifications {
+  #   resource_type = "instance"
+  #   tags = {
+  #     Name        = "Xpress-prod-ec2"
+  #     OS          = "ubuntu-24.04"
+  #     Environment = var.environment
+  #   }
+  # }
+
   tag_specifications {
     resource_type = "instance"
+
     tags = {
-      Name        = "${var.environment}-${replace(var.region_name, "-", "")}-ec2"
+      Name        = "Xpress-prod-ec2"
       OS          = "ubuntu-24.04"
       Environment = var.environment
     }

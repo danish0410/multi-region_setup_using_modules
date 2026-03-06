@@ -32,28 +32,30 @@ module "region_ap_south_2" {
   environment               = var.environment
   iam_instance_profile_name = module.iam.instance_profile_name
   key_name                  = var.ec2_keypair_map[each.key]
+  instance_name_prefix      = var.instance_name_prefix
 
   config = each.value
 }
 
-# module "region_us_east_1" {
-#   source = "./modules/region"
+module "region_us_east_1" {
+  source = "./modules/region"
 
-#   for_each = {
-#     for k, v in var.regions : k => v if k == "us-east-1"
-#   }
+  for_each = {
+    for k, v in var.regions : k => v if k == "us-east-1"
+  }
 
-#   providers = { aws = aws.us_east_1 }
+  providers = { aws = aws.us_east_1 }
 
-#   region_name               = each.key
-#   project                   = var.project
-#   ami_map                   = var.ami_map
-#   environment               = var.environment
-#   iam_instance_profile_name = module.iam.instance_profile_name
-#   key_name                  = var.ec2_keypair_map[each.key]
+  region_name               = each.key
+  project                   = var.project
+  ami_map                   = var.ami_map
+  environment               = var.environment
+  iam_instance_profile_name = module.iam.instance_profile_name
+  key_name                  = var.ec2_keypair_map[each.key]
+  instance_name_prefix      = var.instance_name_prefix
 
-#   config = each.value
-# }
+  config = each.value
+}
 
 # module "region_us_east_2" {
 #   source = "./modules/region"
@@ -109,19 +111,19 @@ module "cloudwatch_ap_south_2" {
   # alert_email = var.alert_email
 }
 
-#####################################
+# ####################################
 # CLOUDWATCH – us-east-1
-#####################################
-# module "cloudwatch_us_east_1" {
-#   source = "./modules/cloudwatch"
+# ####################################
+module "cloudwatch_us_east_1" {
+  source = "./modules/cloudwatch"
 
-#   providers = { aws = aws.us_east_1 }
+  providers = { aws = aws.us_east_1 }
 
-#   region      = "us-east-1"
-#   environment = var.environment
-#   asg_name    = module.region_us_east_1["us-east-1"].asg_name
-#   alert_email = var.alert_email
-# }
+  region      = "us-east-1"
+  environment = var.environment
+  asg_name    = module.region_us_east_1["us-east-1"].asg_name
+  # alert_email = var.alert_email
+}
 
 #####################################
 # CLOUDWATCH – us-east-2
@@ -136,3 +138,4 @@ module "cloudwatch_ap_south_2" {
 #   asg_name    = module.region_us_east_2["us-east-2"].asg_name
 #   alert_email = var.alert_email
 # }
+

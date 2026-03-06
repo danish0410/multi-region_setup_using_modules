@@ -17,7 +17,7 @@ resource "aws_autoscaling_group" "this" {
 
   tag {
     key                 = "Name"
-    value               = "${var.environment}-${var.region}-ec2"
+    value               = "Xpress-prod-ec2"
     propagate_at_launch = true
   }
 

@@ -9,7 +9,7 @@ resource "aws_vpc" "this" {
   tags = merge(
     var.tags,
     {
-      Name = "${replace(var.region, "-", "")}-vpc"
+      Name = "Xpress-prod-vpc"
     }
   )
 }
@@ -23,7 +23,7 @@ resource "aws_internet_gateway" "this" {
   tags = merge(
     var.tags,
     {
-      Name = "${replace(var.region, "-", "")}-igw"
+      Name = "Xpress-prod-igw"
     }
   )
 }
@@ -42,7 +42,7 @@ resource "aws_subnet" "public" {
   tags = merge(
     var.tags,
     {
-      Name = "${replace(var.region, "-", "")}-public-${each.key}"
+      Name = "Xpress-prod-public-${each.key}"
       Tier = "public"
     }
   )
@@ -61,7 +61,7 @@ resource "aws_subnet" "public" {
 #   tags = merge(
 #     var.tags,
 #     {
-#       Name = "${var.project}-${var.region}-private-${each.key}"
+#       Name = "Xpress-prod-private-${each.key}"
 #       Tier = "private"
 #     }
 #   )
@@ -81,7 +81,7 @@ resource "aws_route_table" "public" {
   tags = merge(
     var.tags,
     {
-      Name = "${replace(var.region, "-", "")}-public-rt"
+      Name = "Xpress-prod-public-rt"
     }
   )
 }
@@ -104,7 +104,7 @@ resource "aws_route_table_association" "public" {
 #   tags = merge(
 #     var.tags,
 #     {
-#       Name = "${var.project}-${var.region}-private-rt"
+#       Name = "Xpress-prod-private-rt"
 #     }
 #   )
 # }
