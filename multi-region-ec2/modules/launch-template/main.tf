@@ -77,8 +77,8 @@ resource "aws_launch_template" "this" {
     resource_type = "instance"
 
     tags = {
-      Name        = "Xpress-prod-ec2"
-      OS          = "ubuntu-24.04"
+      Name = "Xpress-prod-ec2"
+      # OS          = "ubuntu-24.04"
       Environment = var.environment
     }
   }

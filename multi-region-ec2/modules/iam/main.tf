@@ -1,5 +1,5 @@
 resource "aws_iam_role" "ec2_role" {
-  name = "Xpress-prod-ec2-role"
+  name = "Xpress-prod-ec2-role-us-east-2"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -19,7 +19,7 @@ resource "aws_iam_role_policy_attachment" "ssm" {
 }
 
 resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "Xpress-prod-ssm-profile"
+  name = "Xpress-prod-ssm-profile-us-east-2"
   role = aws_iam_role.ec2_role.name
 }
 
