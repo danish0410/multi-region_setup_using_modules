@@ -25,8 +25,8 @@ module "sg" {
   vpc_id   = module.vpc.vpc_id
   vpc_cidr = module.vpc.vpc_cidr
 
-  common_sg_name = "${replace(var.region_name, "-", "")}-common-sg"
-  user_sg_name   = "${replace(var.region_name, "-", "")}-user-sg"
+  common_sg_name = "Xpress-prod-common-sg"
+  user_sg_name   = "Xpress-prod-user-sg"
 
   allowed_cidr_blocks = ["0.0.0.0/0"]
 
@@ -50,6 +50,7 @@ module "lt" {
   key_name                  = var.key_name
   region_name               = var.region_name
   environment               = var.environment
+  instance_name_prefix      = "Xpress-prod"
 
   user_data = base64encode(
     templatefile("${path.module}/userdata/dev_classic_userdata.sh", {

@@ -39,13 +39,37 @@ variable "environment" {
   default     = "dev"
 }
 
-# variable "alert_email" {
-#   description = "Email address for CloudWatch SNS alerts"
-#   type        = string
-# }
+variable "alert_email" {
+  description = "Email address for CloudWatch SNS alerts"
+  type        = string
+  default     = "randhir.panda@aristagroup.net"
+}
 
 variable "ami_map" {
   description = "Region-wise AMI mapping"
+  type        = map(string)
+  default     = {}
+}
+
+variable "instance_name_prefix" {
+  description = "Prefix for EC2 instance name"
+  type        = string
+}
+
+variable "bucket_name_map" {
+  description = "region bucket name"
+  type        = map(string)
+  default     = {}
+}
+
+variable "terraform_state_key_map" {
+  description = "terraform state key for region"
+  type        = map(string)
+  default     = {}
+}
+
+variable "dynamodb_table_map" {
+  description = "dynamodb table for region"
   type        = map(string)
   default     = {}
 }

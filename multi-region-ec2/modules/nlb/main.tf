@@ -1,5 +1,5 @@
 resource "aws_lb" "nlb" {
-  name                             = "${var.environment}-nlb"
+  name                             = "Xpress-prod-nlb"
   load_balancer_type               = "network"
   internal                         = false
   subnets                          = var.public_subnet_ids
@@ -8,7 +8,7 @@ resource "aws_lb" "nlb" {
 }
 
 resource "aws_lb_target_group" "tg" {
-  name        = "${var.environment}-tg"
+  name        = "Xpress-prod-tg"
   port        = 80
   protocol    = "TCP"
   vpc_id      = var.vpc_id
@@ -20,7 +20,7 @@ resource "aws_lb_target_group" "tg" {
 }
 
 resource "aws_lb_target_group" "tgtls" {
-  name        = "${var.environment}-tg-tls"
+  name        = "Xpress-prod-tg-tls"
   port        = 443
   protocol    = "TLS"
   vpc_id      = var.vpc_id
@@ -42,15 +42,15 @@ resource "aws_lb_listener" "listener" {
   }
 }
 
-# resource "aws_lb_listener" "listenertls" {
-#   load_balancer_arn = aws_lb.nlb.arn
-#   port              = 443
-#   protocol          = "TLS"
-#   certificate_arn   = "arn:aws:acm:ap-south-2:064711806263:certificate/75eddb06-b5fc-4d06-8171-d445d4014861"
+resource "aws_lb_listener" "listenertls" {
+  load_balancer_arn = aws_lb.nlb.arn
+  port              = 443
+  protocol          = "TLS"
+  certificate_arn   = "arn:aws:acm:us-east-2:064711806263:certificate/ca635fe5-bf62-403b-b044-22b47741d13d"
 
-#   default_action {
-#     type             = "forward"
-#     target_group_arn = aws_lb_target_group.tgtls.arn
-#   }
-# }
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.tgtls.arn
+  }
+}
 
