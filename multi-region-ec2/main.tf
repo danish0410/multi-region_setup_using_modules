@@ -73,6 +73,7 @@ module "region_us_east_2" {
   key_name                  = var.ec2_keypair_map[each.key]
   instance_name_prefix      = var.instance_name_prefix
 
+
   config = each.value
 }
 
