@@ -3,14 +3,6 @@ resource "aws_security_group" "common" {
   description = "Common security group with HTTP and HTTPS access"
   vpc_id      = var.vpc_id
 
-  # ingress {
-  #   description = "HTTP"
-  #   from_port   = 80
-  #   to_port     = 80
-  #   protocol    = "tcp"
-  #   cidr_blocks = var.allowed_cidr_blocks
-  # }
-
   ingress {
     description = "HTTP"
     from_port   = 80
