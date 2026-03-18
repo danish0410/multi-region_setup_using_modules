@@ -199,7 +199,7 @@ resource "aws_cloudwatch_dashboard" "dashboard" {
 resource "aws_cloudwatch_metric_alarm" "ec2_memory_high" {
   alarm_name          = "${var.environment}-${var.region}-ec2-memory-high"
   comparison_operator = "GreaterThanThreshold"
-  threshold           = 60
+  threshold           = 70
   evaluation_periods  = 2
 
   metric_name       = "mem_used_percent"
@@ -225,7 +225,7 @@ resource "aws_cloudwatch_metric_alarm" "disk_high" {
   namespace           = "CWAgent"
   period              = 60
   statistic           = "Average"
-  threshold           = 60
+  threshold           = 70
   alarm_description   = "Disk usage above 60%"
 
   dimensions = {
