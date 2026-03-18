@@ -47,8 +47,15 @@ module "region_us_east_2" {
 #####################################
 # IAM (GLOBAL / SHARED)
 #####################################
+# module "iam" {
+#   source = "./modules/iam"
+# }
+
 module "iam" {
-  source = "./modules/iam"
+  source      = "./modules/iam"
+  project     = var.project
+  environment = "prod"
+  region      = "us-east-2"
 }
 
 #####################################
@@ -74,7 +81,7 @@ module "cloudwatch_us_east_2" {
   providers = { aws = aws.us_east_2 }
 
   region      = "us-east-2"
-  environment = var.environment
+  environment = "prod"
   asg_name    = module.region_us_east_2["us-east-2"].asg_name
   # alert_email = var.alert_email
 }

@@ -48,7 +48,7 @@ resource "aws_autoscaling_schedule" "scale_out" {
   max_size         = 2
   desired_capacity = 1
 
-  recurrence = "30 7 * * 1-5"
+  recurrence = "30 3 * * 1-5"
 
   time_zone = "America/New_York"
 
@@ -65,7 +65,7 @@ resource "aws_autoscaling_schedule" "scale_in" {
   max_size         = 1
   desired_capacity = 0
 
-  recurrence = "30 16 * * 1-5"
+  recurrence = "30 12 * * 1-5"
 
   time_zone = "America/New_York"
 

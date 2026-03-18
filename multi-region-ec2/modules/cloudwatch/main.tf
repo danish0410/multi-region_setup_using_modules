@@ -202,10 +202,11 @@ resource "aws_cloudwatch_metric_alarm" "ec2_memory_high" {
   threshold           = 60
   evaluation_periods  = 2
 
-  metric_name = "mem_used_percent"
-  namespace   = "CWAgent"
-  period      = 60
-  statistic   = "Average"
+  metric_name       = "mem_used_percent"
+  namespace         = "CWAgent"
+  period            = 60
+  statistic         = "Average"
+  alarm_description = "Memory utilization above 60%"
 
   dimensions = {
     AutoScalingGroupName = var.asg_name
@@ -213,4 +214,21 @@ resource "aws_cloudwatch_metric_alarm" "ec2_memory_high" {
 
   treat_missing_data = "notBreaching"
   alarm_actions      = [aws_sns_topic.alerts.arn]
+}
+
+resource "aws_cloudwatch_metric_alarm" "disk_high" {
+
+  alarm_name          = "${var.environment}-${var.region}-disk-high"
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = 2
+  metric_name         = "disk_used_percent"
+  namespace           = "CWAgent"
+  period              = 60
+  statistic           = "Average"
+  threshold           = 60
+  alarm_description   = "Disk usage above 60%"
+
+  dimensions = {
+    AutoScalingGroupName = var.asg_name
+  }
 }

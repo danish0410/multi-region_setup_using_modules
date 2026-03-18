@@ -88,7 +88,6 @@ module "nlb" {
   public_subnet_ids = module.vpc.public_subnet_ids
 }
 
-
 # ################################
 # # Auto Scaling Group
 # ################################
