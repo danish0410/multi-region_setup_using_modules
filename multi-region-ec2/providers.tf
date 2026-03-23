@@ -9,10 +9,10 @@ terraform {
   }
 }
 
-# provider "aws" {
-#   alias  = "ap_south_2"
-#   region = "ap-south-2"
-# }
+provider "aws" {
+  alias  = "ap_south_2"
+  region = "ap-south-2"
+}
 
 provider "aws" {
   alias  = "us_east_2"
