@@ -40,39 +40,39 @@ resource "aws_autoscaling_group" "this" {
   }
 }
 
-resource "aws_autoscaling_schedule" "scale_out" {
-  scheduled_action_name  = "scale-out-1pm-ist"
-  autoscaling_group_name = aws_autoscaling_group.this.name
+# resource "aws_autoscaling_schedule" "scale_out" {
+#   scheduled_action_name  = "scale-out-1pm-ist"
+#   autoscaling_group_name = aws_autoscaling_group.this.name
 
-  min_size         = 1
-  max_size         = 2
-  desired_capacity = 1
+#   min_size         = 1
+#   max_size         = 2
+#   desired_capacity = 1
 
-  recurrence = "30 3 * * 1-5"
+#   recurrence = "30 3 * * 1-5"
 
-  time_zone = "America/New_York"
+#   time_zone = "America/New_York"
 
-  depends_on = [
-    aws_autoscaling_group.this
-  ]
-}
+#   depends_on = [
+#     aws_autoscaling_group.this
+#   ]
+# }
 
-resource "aws_autoscaling_schedule" "scale_in" {
-  scheduled_action_name  = "scale-in-10pm-ist"
-  autoscaling_group_name = aws_autoscaling_group.this.name
+# resource "aws_autoscaling_schedule" "scale_in" {
+#   scheduled_action_name  = "scale-in-10pm-ist"
+#   autoscaling_group_name = aws_autoscaling_group.this.name
 
-  min_size         = 0
-  max_size         = 1
-  desired_capacity = 0
+#   min_size         = 0
+#   max_size         = 1
+#   desired_capacity = 0
 
-  recurrence = "30 12 * * 1-5"
+#   recurrence = "30 12 * * 1-5"
 
-  time_zone = "America/New_York"
+#   time_zone = "America/New_York"
 
-  depends_on = [
-    aws_autoscaling_group.this
-  ]
-}
+#   depends_on = [
+#     aws_autoscaling_group.this
+#   ]
+# }
 
 
 # resource "aws_autoscaling_group" "this" {
