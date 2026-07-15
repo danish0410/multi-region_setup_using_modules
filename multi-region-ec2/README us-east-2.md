@@ -1,6 +1,6 @@
 s3 bucket
 aws s3api create-bucket \
-  --bucket arista-xpress-us-east-2 \
+  --bucket xpress-prod-hyderabad \
   --region us-east-2 \
   --create-bucket-configuration LocationConstraint=us-east-2
 

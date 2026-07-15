@@ -42,15 +42,16 @@ resource "aws_lb_listener" "listener" {
   }
 }
 
-resource "aws_lb_listener" "listenertls" {
-  load_balancer_arn = aws_lb.nlb.arn
-  port              = 443
-  protocol          = "TLS"
-  certificate_arn   = "arn:aws:acm:us-east-2:064711806263:certificate/ca635fe5-bf62-403b-b044-22b47741d13d"
+# resource "aws_lb_listener" "listenertls" {
+#   load_balancer_arn = aws_lb.nlb.arn
+#   port              = 443
+#   protocol          = "TLS"
+#   # certificate_arn   = "arn:aws:acm:us-east-2:064711806263:certificate/ca635fe5-bf62-403b-b044-22b47741d13d"
+#   # certificate_arn = "arn:aws:elasticloadbalancing:ap-south-2:430861662740:loadbalancer/net/Xpress-prod-nlb/81f892b5dc7c4811"
 
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.tgtls.arn
-  }
-}
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.tgtls.arn
+#   }
+# }
 
